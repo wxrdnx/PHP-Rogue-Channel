@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release" xsi:schemaLocation="http://pear.php.net/dtd/rest.release http://pear.php.net/dtd/rest.release.xsd">
+    <p xlink:href="/rest/p/shell">Shell</p>
+    <c>wxrdnx.tw</c>
+    <v>1.0.0</v>
+    <st>stable</st>
+    <l>GPLv3</l>
+    <m>wxrdnx</m>
+    <s>shell</s>
+    <d>shell</d>
+    <da>2020-04-01</da>
+    <n>shell</n>
+    <f>31337</f>
+    <g>https://wxrdnx.tw/get/Shell</g>
+    <x xlink:href="package.1.0.0.xml"/>
+</r>

